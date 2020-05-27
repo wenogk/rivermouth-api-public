@@ -69,4 +69,31 @@ router.put('/', function(req, res, next) { //Updating a story
 
 });
 
+router.delete('/', function(req, res, next) { // deleting a story
+  let userID = req.body.userID;
+  let storyID = req.body.storyID;
+  EmailModel
+    .findOneAndRemove({
+      userID: userID,
+      storyID: storyID
+    })
+    .then(response => {
+      res.json({
+        success: "true"
+      });
+    })
+    .catch(err => {
+      res.json({
+        success: "false"
+      });
+    })
+  StoryModel.find({
+    userID: req.params.userID   // search query
+  }).then(result => {
+    res.json(result);
+  }).catch(err => {
+    res.send("Error.");
+  })
+});
+
 module.exports = router;
