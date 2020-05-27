@@ -81,6 +81,8 @@ router.delete('/', function(req, res, next) { // deleting a story
     })
     .then(response => {
       res.json({
+        userID: userID,
+        storyID: storyID
         success: "true"
       });
     })
