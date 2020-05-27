@@ -10,20 +10,21 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-router.get('/:userID', function(req, res, next) {
+router.get('/:userID', function(req, res, next) { // Requesting for stories of a specific user by their userID
 res.send('user id is ' + req.params.userID);
 });
 
-router.post('/', function(req, res, next) {
-  var instance = new StoryModel({
+router.post('/', function(req, res, next) { //Adding a new story
+  let newStory = new StoryModel({
     userID: "Romenonew0000google",
     title: "This is the fffsfd",
     storyString: "{}albert}"
   });
-    instance.save(function (err) {
-      if (err) return handleError(err);
-      res.send('saved');
-    });
+  newStory.save().then(doc => {
+      res.json(newStory);
+   }).catch(err => {
+     res.send(err)
+   });
 
 });
 
