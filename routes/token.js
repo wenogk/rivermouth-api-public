@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client("1048507317343-nvfritcgv71asc4ld7lg4gt421grq42j.apps.googleusercontent.com");
 async function verify(userIDVal) { //use this when logging in from react
+  //https://developers.google.com/identity/sign-in/web/backend-auth read this again (watch video too)
   const ticket = await client.verifyIdToken({
       idToken: token,
       audience: "1048507317343-nvfritcgv71asc4ld7lg4gt421grq42j.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
