@@ -79,7 +79,7 @@ router.delete('/:storyID', function(req, res, next) { // deleting a story
     .then(response => {
       res.json({
         storyID: storyID,
-        success: "true ---" + userID + "--"
+        success: "true ---" + storyID + "--"
       });
     })
     .catch(err => {
