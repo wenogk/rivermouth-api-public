@@ -50,7 +50,7 @@ router.put('/', function(req, res, next) { //Updating a story
   let storyID = req.body.storyID;
   StoryModel.findOneAndUpdate(
       {
-        : storyID  // search query
+        storyID : storyID  // search query
       },
       {
         title: title,
@@ -72,8 +72,8 @@ router.put('/', function(req, res, next) { //Updating a story
 router.delete('/', function(req, res, next) { // deleting a story
   let userID = req.body.userID;
   let storyID = req.body.storyID;
-  EmailModel
-    .findOneAndRemove({
+
+  StoryModel.findOneAndRemove({
       userID: userID,
       storyID: storyID
     })
@@ -87,13 +87,6 @@ router.delete('/', function(req, res, next) { // deleting a story
         success: "false"
       });
     })
-  StoryModel.find({
-    userID: req.params.userID   // search query
-  }).then(result => {
-    res.json(result);
-  }).catch(err => {
-    res.send("Error.");
-  })
 });
 
 module.exports = router;
