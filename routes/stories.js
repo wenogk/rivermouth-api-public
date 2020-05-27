@@ -11,7 +11,13 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 router.get('/:userID', function(req, res, next) { // Requesting for stories of a specific user by their userID
-res.send('user id is ' + req.params.userID);
+  StoryModel.find({
+    userID: req.params.userID   // search query
+  }).then(result => {
+    res.json(result);
+  }).catch(err => {
+    res.send(err)
+  })
 });
 
 router.post('/', function(req, res, next) { //Adding a new story
