@@ -15,7 +15,7 @@ function authenticate(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
   if(token == null) {
-    res.sendStatus(401);
+    res.sendStatus(401).send("header--->"+authHeader);
   }
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user)=> {
     if(err) {
