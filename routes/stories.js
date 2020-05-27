@@ -12,8 +12,8 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 function authenticate(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  const token = req.headers['authorization'];
+//  const token = authHeader && authHeader.split(' ')[1];
   if(token == null) {
     res.send("header--->"+authHeader); //sendStatus(401).
   }
