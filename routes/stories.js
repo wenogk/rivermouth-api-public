@@ -16,9 +16,9 @@ res.send('user id is ' + req.params.userID);
 
 router.post('/', function(req, res, next) {
   var instance = new StoryModel({
-    userID: "Romeno232323",
-    title: "This is the title",
-    storyString: "{}sdojodsjosdoiewdhoihewof}"
+    userID: "Romenonew0000google",
+    title: "This is the fffsfd",
+    storyString: "{}albert}"
   });
     instance.save(function (err) {
       if (err) return handleError(err);
