@@ -27,7 +27,7 @@ function authenticate(req, res, next) {
 }
 
 router.get('/', authenticate, function(req, res, next) { // Requesting for stories of a specific user by their userID
-
+  res.send("user: " + req.user);
   StoryModel.find({
     userID: req.user.userID   // search query
   }).then(result => {
