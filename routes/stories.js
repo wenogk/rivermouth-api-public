@@ -4,18 +4,32 @@ var mongoose = require('mongoose');
 var StoryModel = require('../models/Story');
 var mongoDB = "mongodb+srv://" + process.env.MONGODB_USER_RIVERMOUTH + ":" + process.env.MONGODB_PASS_RIVERMOUTH + "@rivermouth-rt5m7.mongodb.net/test?retryWrites=true&w=majority";
 var shortid = require('shortid');
-
+var jwt = require('jsonwebtoken');
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+function authenticate(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if(token == null) {
+    res.sendStatus(401);
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err,user)=> {
+    if(err) {
+      res.sendStatus(403);
+    }
+    req.user = user
+    next();
+  })
+}
 
-router.get('/:userID', function(req, res, next) { // Requesting for stories of a specific user by their userID
+router.get('/', authenticate, function(req, res, next) { // Requesting for stories of a specific user by their userID
 
   StoryModel.find({
-    userID: req.params.userID   // search query
+    userID: req.user.userID   // search query
   }).then(result => {
     res.json(result);
   }).catch(err => {
