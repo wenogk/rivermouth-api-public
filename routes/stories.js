@@ -50,7 +50,8 @@ router.put('/', function(req, res, next) { //Updating a story
   let storyID = req.body.storyID;
   StoryModel.findOneAndUpdate(
       {
-        storyID : storyID  // search query
+        userID: userID,
+        storyID: storyID
       },
       {
         title: title,
