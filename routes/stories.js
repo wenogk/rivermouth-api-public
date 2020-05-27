@@ -4,11 +4,17 @@ var mongoose = require('mongoose');
 var StoryModel = require('../models/Story');
 var mongoDB = "mongodb+srv://" + process.env.MONGODB_USER_RIVERMOUTH + ":" + process.env.MONGODB_PASS_RIVERMOUTH + "@rivermouth-rt5m7.mongodb.net/test?retryWrites=true&w=majority";
 var shortid = require('shortid');
+
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+const verifyToken(token,userID) {
+  //check in User model and return true or false
+  return false;
+}
 
 router.get('/:userID', function(req, res, next) { // Requesting for stories of a specific user by their userID
 
@@ -72,7 +78,6 @@ router.put('/', function(req, res, next) { //Updating a story
 
 router.delete('/:storyID', function(req, res, next) { // deleting a story
   let storyID = req.params.storyID;
-
   StoryModel.findOneAndRemove({
       storyID: storyID
     })
