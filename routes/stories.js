@@ -11,10 +11,6 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-const verifyToken(token,userID) {
-  //check in User model and return true or false
-  return false;
-}
 
 router.get('/:userID', function(req, res, next) { // Requesting for stories of a specific user by their userID
 
