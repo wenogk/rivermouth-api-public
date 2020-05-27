@@ -14,7 +14,6 @@ var Schema = mongoose.Schema;
 
 var StorySchema = new Schema({
   userID: String,
-  userType: String,
   title: String,
   storyString: String
 });
@@ -23,20 +22,16 @@ var StoryModel = mongoose.model('StoryModel', StorySchema );
 
 var instance = new StoryModel({
   userID: "Romeno232323",
-  userType: "google",
   title: "This is the title",
   storyString: "{}sdojodsjosdoiewdhoihewof}"
 });
 
 
-router.get('/', function(req, res, next) {
-  instance.save(function (err) {
-    if (err) return handleError(err);
-    res.send('saved');
-  });
+router.get('/:userID', function(req, res, next) {
+res.send('user id is ' + req.params.userID);
+});
 
-
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
     instance.save(function (err) {
       if (err) return handleError(err);
       res.send('saved');
