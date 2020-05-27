@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var StorySchema = new Schema({
   userID: String,
+  storyID: String,
   title: String,
   storyString: String
 });
