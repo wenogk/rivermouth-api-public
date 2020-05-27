@@ -70,19 +70,16 @@ router.put('/', function(req, res, next) { //Updating a story
     })
 });
 
-router.delete('/', function(req, res, next) { // deleting a story
-  let userID = req.body.userID;
-  let storyID = req.body.storyID;
+router.delete('/:storyID', function(req, res, next) { // deleting a story
+  let storyID = req.params.storyID;
 
   StoryModel.findOneAndRemove({
-      userID: userID,
       storyID: storyID
     })
     .then(response => {
       res.json({
-        userID: userID,
         storyID: storyID,
-        success: "true ---" + userID + "--" + storyID
+        success: "true ---" + userID + "--"
       });
     })
     .catch(err => {
