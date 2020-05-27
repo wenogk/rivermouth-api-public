@@ -84,7 +84,7 @@ router.delete('/:storyID', function(req, res, next) { // deleting a story
     })
     .catch(err => {
       res.json({
-        success: "false"
+        success: "false" + err
       });
     })
 });
