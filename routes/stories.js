@@ -62,7 +62,8 @@ router.put('/', function(req, res, next) { //Updating a story
         runValidators: true              // validate before update
       })
     .then(result => {
-      res.json(result);
+      res.send("Story id is: " + storyID + " --- userID: " + userID);
+      //res.json(result);
     })
     .catch(err => {
       res.send("Error");
