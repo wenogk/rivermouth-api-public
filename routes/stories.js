@@ -21,14 +21,14 @@ function authenticate(req, res, next) {
     if(err) {
       res.sendStatus(403);
     }
-    req.user = user
+    req.userID = user.name
     next();
   })
 }
 
 router.get('/', authenticate, function(req, res, next) { // Requesting for stories of a specific user by their userID
   StoryModel.find({
-    userID: req.user.name   // search query
+    userID: req.userID  // search query
   }).then(result => {
     res.json(result);
   }).catch(err => {
@@ -36,9 +36,9 @@ router.get('/', authenticate, function(req, res, next) { // Requesting for stori
   })
 });
 
-router.post('/', function(req, res, next) { //Adding a new story
+router.post('/', authenticate, function(req, res, next) { //Adding a new story
 
-  let userID = req.body.userID;
+  let userID = req.userID;
   let title = req.body.title;
   let storyString = req.body.storyString;
   let storyID = shortid.generate();
@@ -57,9 +57,9 @@ router.post('/', function(req, res, next) { //Adding a new story
 
 });
 
-router.put('/', function(req, res, next) { //Updating a story
+router.put('/', authenticate, function(req, res, next) { //Updating a story
 
-  let userID = req.body.userID;
+  let userID = req.userID;
   let title = req.body.title;
   let storyString = req.body.storyString;
   let storyID = req.body.storyID;
@@ -85,10 +85,11 @@ router.put('/', function(req, res, next) { //Updating a story
     })
 });
 
-router.delete('/:storyID', function(req, res, next) { // deleting a story
+router.delete('/:storyID', authenticate, function(req, res, next) { // deleting a story
   let storyID = req.params.storyID;
   StoryModel.findOneAndRemove({
-      storyID: storyID
+      storyID: storyID,
+      userID: req.userID
     })
     .then(response => {
       res.json({
