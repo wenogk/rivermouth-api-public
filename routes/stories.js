@@ -68,7 +68,6 @@ router.put('/', function(req, res, next) { //Updating a story
     .catch(err => {
       res.send("Error");
     })
-
 });
 
 router.delete('/', function(req, res, next) { // deleting a story
@@ -83,7 +82,7 @@ router.delete('/', function(req, res, next) { // deleting a story
       res.json({
         userID: userID,
         storyID: storyID,
-        success: "true"
+        success: "true ---" + userID + "--" + storyID
       });
     })
     .catch(err => {
