@@ -51,7 +51,7 @@ router.post('/', function(req, res, next) {
         res.json({
           accessToken: accessToken,
           gToken: req.body.gToken,
-          verifiedID: gID
+          verifiedID: userID
         });
       } else {
         console.log(":( :( NOT MATCHED!!!!!");
