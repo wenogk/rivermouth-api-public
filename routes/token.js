@@ -22,7 +22,7 @@ async function verify(token) { //use this when logging in from react
 }
 router.post('/', function(req, res, next) {
   //res.send('respond with a resource');
-  await const verifiedID = verify(req.body.gToken);
+  const verifiedID = await verify(req.body.gToken);
 
   const userID = req.body.userID; //this will be equal to the value from the verify function once it is integrated here
   const user = { name: userID};
