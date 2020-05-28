@@ -6,6 +6,7 @@ const GOOGLE_CLIENT_ID ="1048507317343-nvfritcgv71asc4ld7lg4gt421grq42j.apps.goo
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 async function verify(token) { //use this when logging in from react
   //https://developers.google.com/identity/sign-in/web/backend-auth read this again (watch video too)
+  console.log("BEFORE TICKET: ");
   const ticket = await client.verifyIdToken({
       idToken: token,
       audience: GOOGLE_CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
