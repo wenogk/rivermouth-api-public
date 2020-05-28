@@ -33,9 +33,9 @@ router.post('/', function(req, res, next) {
       verifiedID: gID
     });
   }).catch(err=> {
-    res.json{
+    res.json({
       err: err
-    }
+    });
   });
 
 });
