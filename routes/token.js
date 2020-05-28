@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   }).then(ticket=> {
-
+        console.log("INSIDE THEN");
       const payload = ticket.getPayload();
       console.log("PAYLOAD: " + JSON.stringify(payload));
       const userID = payload['sub'];
