@@ -21,6 +21,7 @@ function verify(token) { //use this when logging in from react
         console.log("MATCHED!!!!!");
         return userID;
       } else {
+          console.log(":( :( NOT MATCHED!!!!!");
         return null;
       }
   }).catch(err=> {
@@ -44,6 +45,5 @@ router.post('/', function(req, res, next) {
 
   });
 
-});
 
 module.exports = router;
