@@ -12,7 +12,9 @@ async function verify(token) { //use this when logging in from react
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
+
   const payload = ticket.getPayload();
+  console.log("PAYLOAD: " + JSON.stringify(payload));
   const userID = payload['sub'];
   if ((payload['aud']==GOOGLE_CLIENT_ID)&&((payload['iss']=="https://accounts.google.com")||(payload['iss']=="accounts.google.com"))) {
     return userID;
