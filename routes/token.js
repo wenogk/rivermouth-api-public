@@ -32,6 +32,10 @@ router.post('/', function(req, res, next) {
       gToken: req.body.gToken,
       verifiedID: gID
     });
+  }).catch(err=> {
+    res.json{
+      err: err
+    }
   });
 
 });
