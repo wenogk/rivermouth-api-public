@@ -22,7 +22,7 @@ async function verify(userIDVal) { //use this when logging in from react
 }
 router.post('/', function(req, res, next) {
   //res.send('respond with a resource');
-  const userID = req.body.userID;
+  const userID = req.body.userID; //this will be equal to the value from the verify function once it is integrated here
   const user = { name: userID};
 
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
