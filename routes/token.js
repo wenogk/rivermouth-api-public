@@ -32,6 +32,40 @@ function verify(token) { //use this when logging in from react
 }
 router.post('/', function(req, res, next) {
   //res.send('respond with a resource');
+  console.log("BEFORE TICKET: ");
+  client.verifyIdToken({
+      idToken: token,
+      audience: GOOGLE_CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  }).then(ticket=> {
+
+      const payload = ticket.getPayload();
+      console.log("PAYLOAD: " + JSON.stringify(payload));
+      const userID = payload['sub'];
+      if ((payload['aud']==GOOGLE_CLIENT_ID)&&((payload['iss']=="https://accounts.google.com")||(payload['iss']=="accounts.google.com"))) {
+        console.log("MATCHED!!!!!");
+        const user = { name: userID};
+
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+        res.json({
+          accessToken: accessToken,
+          gToken: req.body.gToken,
+          verifiedID: gID
+        });
+      } else {
+        console.log(":( :( NOT MATCHED!!!!!");
+        res.sendStatus(403);
+      }
+  }).catch(err=> {
+    console.log("ERROR verifyy(): " + err)
+    res.sendStatus(400);
+  });
+  //end
+  });
+
+/*router.post('/', function(req, res, next) {
+  //res.send('respond with a resource');
     let gID = verify(req.body.gToken)
     const userID = req.body.userID; //this will be equal to the value from the verify function once it is integrated here
     const user = { name: userID};
@@ -44,6 +78,6 @@ router.post('/', function(req, res, next) {
     });
 
   });
-
+*/
 
 module.exports = router;
