@@ -18,18 +18,20 @@ function verify(token) { //use this when logging in from react
       console.log("PAYLOAD: " + JSON.stringify(payload));
       const userID = payload['sub'];
       if ((payload['aud']==GOOGLE_CLIENT_ID)&&((payload['iss']=="https://accounts.google.com")||(payload['iss']=="accounts.google.com"))) {
+        console.log("MATCHED!!!!!");
         return userID;
       } else {
         return null;
       }
   }).catch(err=> {
     console.log("ERROR verifyy(): " + err)
+    return null;
   });
 
 }
 router.post('/', function(req, res, next) {
   //res.send('respond with a resource');
-  verify(req.body.gToken).then(gID => {
+    let gID = verify(req.body.gToken)
     const userID = req.body.userID; //this will be equal to the value from the verify function once it is integrated here
     const user = { name: userID};
 
@@ -39,10 +41,7 @@ router.post('/', function(req, res, next) {
       gToken: req.body.gToken,
       verifiedID: gID
     });
-  }).catch(err=> {
-    res.json({
-      err: err
-    });
+
   });
 
 });
