@@ -26,7 +26,10 @@ router.post('/', function(req, res, next) {
   const user = { name: userID};
 
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-  res.json({accessToken: accessToken});
+  res.json({
+    accessToken: accessToken,
+    gToken: req.body.gToken
+  });
 });
 
 module.exports = router;
