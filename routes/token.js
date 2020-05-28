@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 const {OAuth2Client} = require('google-auth-library');
 const GOOGLE_CLIENT_ID ="1048507317343-nvfritcgv71asc4ld7lg4gt421grq42j.apps.googleusercontent.com"; //this is public so no need to hide it
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-async function verify(userIDVal) { //use this when logging in from react
+async function verify(token) { //use this when logging in from react
   //https://developers.google.com/identity/sign-in/web/backend-auth read this again (watch video too)
   const ticket = await client.verifyIdToken({
       idToken: token,
@@ -22,13 +22,16 @@ async function verify(userIDVal) { //use this when logging in from react
 }
 router.post('/', function(req, res, next) {
   //res.send('respond with a resource');
+  await const verifiedID = verify(req.body.gToken);
+
   const userID = req.body.userID; //this will be equal to the value from the verify function once it is integrated here
   const user = { name: userID};
 
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
   res.json({
     accessToken: accessToken,
-    gToken: req.body.gToken
+    gToken: req.body.gToken,
+    verifiedID: verifiedID
   });
 });
 
