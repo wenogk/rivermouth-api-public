@@ -36,6 +36,18 @@ router.get('/', authenticate, function(req, res, next) { // Requesting for stori
   })
 });
 
+router.get('/:storyID', authenticate, function(req, res, next) { // Requesting for stories of a specific user by their userID
+  let storyID = req.params.storyID;
+  StoryModel.find({
+    userID: req.userID,  // search query
+    storyID: storyID
+  }).then(result => {
+    res.json(result);
+  }).catch(err => {
+    res.send("Error.");
+  })
+});
+
 router.post('/', authenticate, function(req, res, next) { //Adding a new story
 
   let userID = req.userID;
