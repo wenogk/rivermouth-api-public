@@ -78,7 +78,7 @@ router.put('/', authenticate, function(req, res, next) { //Updating a story
   let title = req.body.title;
   let storyString = req.body.storyString;
   let storyID = req.body.storyID;
-  let published = (req.body.published==="true") ? true : false;
+  let published = req.body.published;
   let lastSaveTime = Date.now();
   StoryModel.findOneAndUpdate(
       {
