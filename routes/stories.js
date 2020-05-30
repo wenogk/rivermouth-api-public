@@ -54,11 +54,14 @@ router.post('/', authenticate, function(req, res, next) { //Adding a new story
   let title = req.body.title;
   let storyString = req.body.storyString;
   let storyID = shortid.generate();
+  let lastSaveTime = Date.now();
   let newStory = new StoryModel({
     userID: userID,
     storyID: storyID,
     title: title,
-    storyString: storyString
+    storyString: storyString,
+    published: true,
+    lastSaveTime: lastSaveTime
   });
 
   newStory.save().then(doc => {
@@ -75,6 +78,8 @@ router.put('/', authenticate, function(req, res, next) { //Updating a story
   let title = req.body.title;
   let storyString = req.body.storyString;
   let storyID = req.body.storyID;
+  let published = (req.body.published==="true") ? true : false;
+  let lastSaveTime = Date.now();
   StoryModel.findOneAndUpdate(
       {
         userID: userID,
@@ -82,7 +87,9 @@ router.put('/', authenticate, function(req, res, next) { //Updating a story
       },
       {
         title: title,
-        storyString: storyString
+        storyString: storyString,
+        published: published,
+        lastSaveTime: lastSaveTime
       },
       {
         new: true,                       // return updated doc

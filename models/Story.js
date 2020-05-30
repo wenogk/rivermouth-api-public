@@ -6,7 +6,9 @@ var StorySchema = new Schema({
   userID: String,
   storyID: String,
   title: String,
-  storyString: String
+  storyString: String,
+  published: Boolean,
+  lastSaveTime: String
 });
 
 module.exports = mongoose.model('Story', StorySchema );
