@@ -42,7 +42,18 @@ router.get('/:storyID', authenticate, function(req, res, next) { // Requesting f
     userID: req.userID,  // search query
     storyID: storyID
   }).then(result => {
-    if((result.published===false)&&(result.userID!== req.userid)) {
+    res.json(result);
+  }).catch(err => {
+    res.sendStatus(400);
+  })
+});
+
+router.get('/published/:storyID', function(req, res, next) { // Requesting for public stories of a specific storyID
+  let storyID = req.params.storyID;
+  StoryModel.find({
+    storyID: storyID
+  }).then(result => {
+    if(result.published==false) {
       res.sendStatus(403);
     }
     res.json(result);
