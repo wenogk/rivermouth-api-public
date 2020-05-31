@@ -42,9 +42,12 @@ router.get('/:storyID', authenticate, function(req, res, next) { // Requesting f
     userID: req.userID,  // search query
     storyID: storyID
   }).then(result => {
+    if((result.published===false)&&(result.userID!== req.userid)) {
+      res.sendStatus(403);
+    }
     res.json(result);
   }).catch(err => {
-    res.send("Error.");
+    res.sendStatus(400);
   })
 });
 
