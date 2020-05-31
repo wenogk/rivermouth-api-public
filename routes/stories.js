@@ -53,8 +53,7 @@ router.get('/published/:storyID', function(req, res, next) { // Requesting for p
   StoryModel.find({
     storyID: storyID
   }).then(result => {
-    console.log("result published is " + JSON.stringify(result))
-    if(result.data.published==false) {
+    if(result[0].published==false) {
       res.sendStatus(403);
     } else {
       res.json(result);
