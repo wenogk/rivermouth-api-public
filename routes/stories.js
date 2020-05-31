@@ -54,7 +54,7 @@ router.get('/published/:storyID', function(req, res, next) { // Requesting for p
     storyID: storyID
   }).then(result => {
     console.log("result published is " + result.data.published)
-    if(result.published==false) {
+    if(result.data.published==false) {
       res.sendStatus(403);
     } else {
       res.json(result);
