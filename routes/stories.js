@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var StoryModel = require('../models/Story');
-var mongoDB = "mongodb+srv://" + process.env.MONGODB_USER_RIVERMOUTH + ":" + process.env.MONGODB_PASS_RIVERMOUTH + "@rivermouth-rt5m7.mongodb.net/test?retryWrites=true&w=majority";
+var mongoDB =  process.env.MONGODB_URL;
 var shortid = require('shortid');
 var jwt = require('jsonwebtoken');
 mongoose.connect(mongoDB, { useNewUrlParser: true });
